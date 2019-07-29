@@ -115,14 +115,8 @@ function randomCall() {
             return console.log(error);
           }
         
-          // We will then print the contents of data
-          console.log(data);
-        
           // Then split it by commas (to make it more readable)
           var dataArr = data.split(",");
-        
-          // We will then re-display the content as an array for later use.
-          console.log(dataArr);
           
           switch (dataArr[0].toLowerCase()) {
             case "concert-this":
