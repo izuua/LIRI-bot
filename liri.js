@@ -40,19 +40,28 @@ function concertCall() {
 }
 
 function spotifyCall() {
-    var songName = process.argv.slice(3).join("%20")
+    var songName = process.argv.slice(3).join("+")
+    var songNameDisplay = process.argv.slice(3).join(" ")
     if (!songName) {
         songName = "The%20Sign";
     }
 
     console.log(songName);
 
-    spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+    spotify.search({ type: 'track', query: songName }, function(err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
         }
-       
-      console.log(data); 
+    
+      
+      console.log(`Artist Name: ${data.tracks.items[0].album.artists[0].name || "no artist found"}`)
+
+      console.log(`Song Name: ${songNameDisplay || "no name found"}`)
+
+      //song name
+      console.log(`Preview Link: ${data.tracks.items[0].album.external_urls.spotify || "no preview found"}`)
+      
+      console.log(`Album Name: ${data.tracks.items[0].album.name || "no album found"}`)
       });
 }
 
@@ -63,14 +72,14 @@ function movieCall() {
     }
     axios.get("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=4859707d").then(
         function (response) {
-            console.log(`Title: ${response.data.Title || "undefined"}`);
-            console.log(`Release Date: ${response.data.Released || "undefined"}`);
-            console.log(`IMDB rating: ${response.data.Ratings[0].Value || "undefined"}`);
-            console.log(`Rotten Tomatoes rating: ${response.data.Ratings[1].Value || "undefined"}`);
-            console.log(`Country: ${response.data.Country || "undefined"}`);
-            console.log(`Language: ${response.data.Language || "undefined"}`);
-            console.log(`Plot: ${response.data.Plot || "undefined"}`);
-            console.log(`Actors: ${response.data.Actors || "undefined"}`);
+            console.log(`Title: ${response.data.Title || "No title found"}`);
+            console.log(`Release Date: ${response.data.Released || "No release date found"}`);
+            console.log(`IMDB rating: ${response.data.Ratings[0].Value || "no rating found"}`);
+            console.log(`Rotten Tomatoes rating: ${response.data.Ratings[1].Value || "no rating found"}`);
+            console.log(`Country: ${response.data.Country || "No Country found"}`);
+            console.log(`Language: ${response.data.Language || "No Language found"}`);
+            console.log(`Plot: ${response.data.Plot || "No plot found"}`);
+            console.log(`Actors: ${response.data.Actors || "No actors found"}`);
 
         }).catch(function (error) {
             if (error.response) {
