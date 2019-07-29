@@ -148,5 +148,5 @@ switch (input[0].toLowerCase()) {
         randomCall();
         break;
     default:
-        console.log("No command chosen");
+        console.log("No command chosen. Type 'concert-this', 'spotify-this-song', 'movie-this', or 'do-what-it-says'.");
 }
