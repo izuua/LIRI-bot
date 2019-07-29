@@ -21,6 +21,7 @@ function concertCall(arr) {
 
     axios.get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp").then(
         function (response) {
+            console.log(response)
             // venue name
             // venue location
             // date
