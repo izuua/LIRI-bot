@@ -62,10 +62,10 @@ function spotifyCall(arr) {
       
       console.log(`Artist Name: ${data.tracks.items[0].album.artists[0].name || "no artist found"}`)
 
-      console.log(`Song Name: ${songName || "no name found"}`)
+      console.log(`Song Name: ${data.tracks.items[0].name || "no name found"}`)
 
       //song name
-      console.log(`Preview Link: ${data.tracks.items[0].album.external_urls.spotify || "no preview found"}`)
+      console.log(`Preview Link: ${data.tracks.items[0].preview_url || "no preview found"}`)
       
       console.log(`Album Name: ${data.tracks.items[0].album.name || "no album found"}`)
       });
