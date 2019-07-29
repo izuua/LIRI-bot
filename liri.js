@@ -9,8 +9,10 @@ var fs = require("fs");
 var spotify = new Spotify(keys.spotify)
 var input = []
 
-input.push(process.argv[2]);
-input.push(process.argv.slice(3).join(" "));
+input[0] = process.argv[2];
+input[1] = process.argv.slice(3).join(" ")
+// input.push(process.argv[2]);
+// input.push(process.argv.slice(3).join(" "));
 
 
 function concertCall(arr) {
