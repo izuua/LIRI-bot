@@ -8,8 +8,16 @@ var spotify = new Spotify(keys.spotify)
 
 var axios = require("axios");
 
-function concertCall() {
-    var artistName = process.argv.slice(3).join("%20")
+var fs = require("fs");
+
+var input = []
+
+input.push(process.argv[2]);
+input.push(process.argv.slice(3).join(" "));
+
+
+function concertCall(arr) {
+    var artistName = arr[1];
 
     axios.get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp").then(
         function (response) {
@@ -39,14 +47,11 @@ function concertCall() {
         })
 }
 
-function spotifyCall() {
-    var songName = process.argv.slice(3).join("+")
-    var songNameDisplay = process.argv.slice(3).join(" ")
+function spotifyCall(arr) {
+    var songName = arr[1]
     if (!songName) {
-        songName = "The%20Sign";
+        songName = "The+Sign";
     }
-
-    console.log(songName);
 
     spotify.search({ type: 'track', query: songName }, function(err, data) {
         if (err) {
@@ -56,7 +61,7 @@ function spotifyCall() {
       
       console.log(`Artist Name: ${data.tracks.items[0].album.artists[0].name || "no artist found"}`)
 
-      console.log(`Song Name: ${songNameDisplay || "no name found"}`)
+      console.log(`Song Name: ${songName || "no name found"}`)
 
       //song name
       console.log(`Preview Link: ${data.tracks.items[0].album.external_urls.spotify || "no preview found"}`)
@@ -65,10 +70,10 @@ function spotifyCall() {
       });
 }
 
-function movieCall() {
-    var movieName = process.argv.slice(3).join("%20")
+function movieCall(arr) {
+    var movieName = arr[1];
     if (!movieName) {
-        movieName = "Mr%20Nobody";
+        movieName = "Mr Nobody";
     }
     axios.get("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=4859707d").then(
         function (response) {
@@ -77,7 +82,7 @@ function movieCall() {
             console.log(`IMDB rating: ${response.data.Ratings[0].Value || "no rating found"}`);
             console.log(`Rotten Tomatoes rating: ${response.data.Ratings[1].Value || "no rating found"}`);
             console.log(`Country: ${response.data.Country || "No Country found"}`);
-            console.log(`Language: ${response.data.Language || "No Language found"}`);
+            console.log(`Language(s): ${response.data.Language || "No Language found"}`);
             console.log(`Plot: ${response.data.Plot || "No plot found"}`);
             console.log(`Actors: ${response.data.Actors || "No actors found"}`);
 
@@ -103,21 +108,49 @@ function movieCall() {
         })
 }
 
-switch (process.argv[2].toLowerCase()) {
+function randomCall() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            return console.log(error);
+          }
+        
+          // We will then print the contents of data
+          console.log(data);
+        
+          // Then split it by commas (to make it more readable)
+          var dataArr = data.split(",");
+        
+          // We will then re-display the content as an array for later use.
+          console.log(dataArr);
+          
+          switch (dataArr[0].toLowerCase()) {
+            case "concert-this":
+                concertCall(dataArr);
+                break;
+            case "spotify-this-song":
+                spotifyCall(dataArr);
+                break;
+            case "movie-this":
+                movieCall(dataArr);
+                break;
+            default:
+                console.log("No command chosen");
+        }
+    })
+}
+
+switch (input[0].toLowerCase()) {
     case "concert-this":
-        console.log(process.argv[2])
-        concertCall();
+        concertCall(input);
         break;
     case "spotify-this-song":
-        console.log(process.argv[2])
-        spotifyCall();
+        spotifyCall(input);
         break;
     case "movie-this":
-        console.log(process.argv[2])
-        movieCall();
+        movieCall(input);
         break;
     case "do-what-it-says":
-        console.log(process.argv[2])
+        randomCall();
         break;
     default:
         console.log("No command chosen");
