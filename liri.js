@@ -1,15 +1,12 @@
 require("dotenv").config();
 
 var keys = require("./keys.js");
-
 var Spotify = require('node-spotify-api');
-
-var spotify = new Spotify(keys.spotify)
-
 var axios = require("axios");
-
+var moment = require('moment');
 var fs = require("fs");
 
+var spotify = new Spotify(keys.spotify)
 var input = []
 
 input.push(process.argv[2]);
@@ -21,10 +18,9 @@ function concertCall(arr) {
 
     axios.get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp").then(
         function (response) {
-            console.log(response)
-            // venue name
-            // venue location
-            // date
+            console.log(`Venue: ${response.data[0].venue.name || "No venue found"}`);
+            console.log(`Venue Location: ${response.data[0].venue.city || "No venue found"}`);
+            console.log(`Date: ${moment(response.data[0].datetime).format("MM/DD/YYYY") || "No venue found"}`);
 
         }).catch(function (error) {
             if (error.response) {
@@ -51,7 +47,7 @@ function concertCall(arr) {
 function spotifyCall(arr) {
     var songName = arr[1]
     if (!songName) {
-        songName = "The+Sign";
+        songName = "The Sign";
     }
 
     spotify.search({ type: 'track', query: songName }, function(err, data) {
