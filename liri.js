@@ -21,7 +21,7 @@ function concertCall(arr) {
     axios.get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp").then(
         function (response) {
             console.log(`Venue: ${response.data[0].venue.name || "No venue found"}`);
-            console.log(`Venue Location: ${response.data[0].venue.city || "No venue found"}`);
+            console.log(`Venue Location: ${response.data[0].venue.city || "No city found"}, ${response.data[0].venue.region || "No state found"}`);
             console.log(`Date: ${moment(response.data[0].datetime).format("MM/DD/YYYY") || "No venue found"}`);
 
         }).catch(function (error) {
