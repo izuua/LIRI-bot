@@ -1,5 +1,8 @@
 require("dotenv").config();
+
 var keys = require("./keys.js");
+
+var Spotify = require('node-spotify-api');
 
 var spotify = new Spotify(keys.spotify)
 
@@ -42,7 +45,9 @@ function spotifyCall() {
         songName = "The%20Sign";
     }
 
-    spotify.search({ type: 'track', query: songName }, function(err, data) {
+    console.log(songName);
+
+    spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
         }
@@ -96,6 +101,7 @@ switch (process.argv[2].toLowerCase()) {
         break;
     case "spotify-this-song":
         console.log(process.argv[2])
+        spotifyCall();
         break;
     case "movie-this":
         console.log(process.argv[2])
