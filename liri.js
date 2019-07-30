@@ -11,8 +11,6 @@ var input = []
 
 input[0] = process.argv[2] || "Nothing";
 input[1] = process.argv.slice(3).join(" ");
-// input.push(process.argv[2]);
-// input.push(process.argv.slice(3).join(" "));
 
 
 function concertCall(arr) {
@@ -127,7 +125,7 @@ function randomCall() {
                 movieCall(dataArr);
                 break;
             default:
-                console.log("No command chosen");
+                console.log("No command chosen. Type 'concert-this [band name]', 'spotify-this-song [song name]', 'movie-this [movie name]', or 'do-what-it-says'.");
         }
     })
 }
@@ -146,5 +144,5 @@ switch (input[0].toLowerCase()) {
         randomCall();
         break;
     default:
-        console.log("No command chosen. Type 'concert-this', 'spotify-this-song', 'movie-this', or 'do-what-it-says'.");
+        console.log("No command chosen. Type 'concert-this [band name]', 'spotify-this-song [song name]', 'movie-this [movie name]', or 'do-what-it-says'.");
 }
