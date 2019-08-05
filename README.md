@@ -1,6 +1,6 @@
 # LIRI-bot
 
-LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies.
+LIRI searches Spotify for songs, Bands in Town for concerts, and OMDB for movies.
 
 It takes user input and uses axios calls to get data.
 
