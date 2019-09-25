@@ -1,4 +1,4 @@
-# LIRI-bot
+# LIRI bot
 
 A CLI app to search Spotify for songs, Bands in Town for concerts, and OMDB for movies.
 
